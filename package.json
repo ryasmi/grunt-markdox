@@ -1,0 +1,46 @@
+{
+  "name": "grunt-markdox",
+  "description": "A grunt task for running markdox.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/ryansmith/grunt-markdox",
+  "author": {
+    "name": "ryansmith94",
+    "email": "main.ryansmith@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ryansmith/grunt-markdox.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ryansmith/grunt-markdox/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/ryansmith/grunt-markdox/blob/master/license.md"
+    }
+  ],
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "markdox": "~0.1.2",
+    "glob": "~3.2.6"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt": "~0.4.1"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.1"
+  },
+  "keywords": [
+    "dox",
+    "markdox",
+    "gruntplugin"
+  ]
+}
