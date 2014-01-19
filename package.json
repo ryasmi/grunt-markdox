@@ -28,8 +28,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "markdox": "~0.1.2",
-    "glob": "~3.2.6"
+    "markdox": "~0.1.2"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.6.0",
