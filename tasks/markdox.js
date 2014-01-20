@@ -17,24 +17,32 @@ module.exports = function (grunt) {
         });
 
         dests.forEach(function (dest) {
-            options.output = dest;
-
             if (!grunt.file.exists(dest)) {
                 grunt.file.write(dest, '');
             }
 
-            markdox.process(destinations[dest], options, complete);
+            markdox.process(destinations[dest], {
+                output: dest,
+                formatter: options.formatter,
+                compiler: options.compiler,
+                template: options.template
+            }, complete('Generated: ' + dest));
         });
     });
 
     var taskFactory = function (tasks, callback) {
         tasks += 1;
-        return (function me() {
-            if (!(tasks -= 1)) {
-                callback();
-            }
-            return me;
-        }());
+        return (function me(log) {
+            return function () {
+                if (log) {
+                    grunt.log.writeln(log);
+                }
+                if (!(tasks -= 1)) {
+                    callback();
+                }
+                return me;
+            };
+        }(''))();
     };
 
     var getDestinations = function (orignalDests) {
@@ -42,15 +50,7 @@ module.exports = function (grunt) {
 
         orignalDests.forEach(function (destObj) {
             var dest = destObj.dest;
-
-            destObj.src.forEach(function (src) {
-                if (!src.length || !grunt.file.exists(src)) {
-                    grunt.log.warn('"' + src + '" not found.');
-                } else {
-                    finalDests[dest] = finalDests[dest] || [];
-                    finalDests[dest].push(src);
-                }
-            });
+            finalDests[dest] = finalDests[dest] ? finalDests[dest].concat(destObj.src) : destObj.src;
         });
 
         return finalDests;
