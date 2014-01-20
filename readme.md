@@ -82,7 +82,7 @@ The path of the file to write the generated documentation into.
 ```js
 grunt.initConfig({
     markdox: {
-        sourceFiles: {
+        target: {
             files: [
                 {src: 'src/file1.js', dest: 'docs/file1.md'}
                 {src: 'src/file2.js', dest: 'docs/file2.md'}
@@ -106,7 +106,7 @@ grunt.initConfig({
             },
             template: 'output.ejs'
         },
-        sourceFiles: {
+        target: {
             files: [
                 {src: 'src/file1.js', dest: 'docs/file1.md'}
                 {src: 'src/file2.js', dest: 'docs/file2.md'}
