@@ -1,47 +1,58 @@
+/**
+ * @author Ryan Smith
+ */
+
 module.exports = function (grunt) {
     'use strict';
 
     grunt.registerMultiTask('markdox', 'A grunt task for running markdox.', function () {
         var markdox = require('markdox');
         var options = this.options({});
-        var validFiles = removeInvalidFiles(this.files);
+        var destinations = getDestinations(this.files);
         var done = this.async();
-        var complete = (function () {
-            var remaining = validFiles.length;
+        var dests = Object.keys(destinations);
+        var complete = taskFactory(dests.length, function () {
+            grunt.log.writeln('Documentation generated.');
+            done();
+        });
 
-            return function () {
-                remaining -= 1;
-                if (!remaining) {
-                    grunt.log.writeln('Documentation generated.');
-                    done();
-                }
-            };
-        }());
+        dests.forEach(function (dest) {
+            options.output = dest;
 
-        validFiles.forEach(function (f) {
-            options.output = f.dest;
-
-            if (!grunt.file.exists(f.dest)) {
-                grunt.file.write(f.dest, '');
+            if (!grunt.file.exists(dest)) {
+                grunt.file.write(dest, '');
             }
 
-            grunt.log.writeln(f.src + ' : ' + f.dest);
-
-            markdox.process(f.src, options, function () {
-                complete();
-            });
+            markdox.process(destinations[dest], options, complete);
         });
     });
 
-    var removeInvalidFiles = function (files) {
-        return files.filter(function (f) {
-            if (!f.src.length || !grunt.file.exists(f.src)) {
-                grunt.log.warn('"' + f.src + '" not found.');
-                return false;
-            } else {
-                grunt.log.writeln(f.src + ' exists.');
-                return true;
+    var taskFactory = function (tasks, callback) {
+        tasks += 1;
+        return (function me() {
+            if (!(tasks -= 1)) {
+                callback();
             }
+            return me;
+        }());
+    };
+
+    var getDestinations = function (orignalDests) {
+        var finalDests = {};
+
+        orignalDests.forEach(function (destObj) {
+            var dest = destObj.dest;
+
+            destObj.src.forEach(function (src) {
+                if (!src.length || !grunt.file.exists(src)) {
+                    grunt.log.warn('"' + src + '" not found.');
+                } else {
+                    finalDests[dest] = finalDests[dest] || [];
+                    finalDests[dest].push(src);
+                }
+            });
         });
+
+        return finalDests;
     };
 };
