@@ -2,6 +2,10 @@
 
 > A grunt task for running [markdox](https://github.com/cbou/markdox).
 
+This work is licensed under a [Attribution-NonCommercial-ShareAlike 4.0 International
+license](https://gist.githubusercontent.com/ryansmith94/b947ee33d7bfffff9d16/raw/bcd4b00739543c4a215a1f60538d899e2c22cdfd/BY-NC-SA.txt).
+
+
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
 
