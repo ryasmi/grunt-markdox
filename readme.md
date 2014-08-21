@@ -88,7 +88,7 @@ grunt.initConfig({
     markdox: {
         target: {
             files: [
-                {src: 'src/file1.js', dest: 'docs/file1.md'}
+                {src: 'src/file1.js', dest: 'docs/file1.md'},
                 {src: 'src/file2.js', dest: 'docs/file2.md'}
             ]
         }
@@ -112,7 +112,7 @@ grunt.initConfig({
         },
         target: {
             files: [
-                {src: 'src/file1.js', dest: 'docs/file1.md'}
+                {src: 'src/file1.js', dest: 'docs/file1.md'},
                 {src: 'src/file2.js', dest: 'docs/file2.md'}
             ]
         }
